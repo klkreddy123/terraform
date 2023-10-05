@@ -2,7 +2,7 @@ pipeline {
     agent { node { label 'AGENT-1' } }
 
     stages {
-        stage('Build') {
+        stage('Init') {
             steps {
                 echo 'Building..'
                 sh 'ls -ltr'
@@ -10,19 +10,18 @@ pipeline {
                 sh '''
                    ls -ltr
                    pwd
-                   echo 'Hello from push webhook event'
+                   terraform init
                 '''
             }
         }
-        stage('Test') {
+        stage('Plan') {
             steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-                //error 'this is failure'
+                sh'''
+                  ls -ltr
+                  pwd
+                  terraform plan
+                '''
+                
             }
         }
     }
