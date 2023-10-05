@@ -26,7 +26,18 @@ pipeline {
                 
             }
         }
+        stage('Approve') {
+            steps {
+                input "Shall i Approve?"
+            }
+        }
+         stage('Apply') {
+            steps {
+                sh 'terraform apply -auto-approve'
+            }
+        }
     }
+
     post { 
         always { 
             echo 'I will always run weather job is sucess or not'
